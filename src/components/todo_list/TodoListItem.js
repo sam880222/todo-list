@@ -7,7 +7,12 @@ import {
   ListItemText,
 } from "@mui/material";
 
-const TodoListItem = () => {
+const TodoListItem = ({ id, done, content, onChangeStatus }) => {
+  const onClickCheck = (e) => {
+    const newChecked = e.target.checked;
+    onChangeStatus(id, newChecked);
+  };
+
   return (
     <ListItem
       secondaryAction={<IconButton edge="end"></IconButton>}
@@ -15,11 +20,17 @@ const TodoListItem = () => {
     >
       <ListItemButton role={undefined} onClick={() => {}} dense>
         <ListItemIcon>
-          <Checkbox edge="start" checked={true} tabIndex={-1} disableRipple />
+          <Checkbox
+            edge="start"
+            checked={done}
+            tabIndex={-1}
+            onChange={onClickCheck}
+            disableRipple
+          />
         </ListItemIcon>
         <ListItemText
           id={""}
-          primary={`Line item `}
+          primary={content}
           primaryTypographyProps={{ sx: { color: "white" } }}
         />
       </ListItemButton>
